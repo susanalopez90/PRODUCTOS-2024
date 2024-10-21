@@ -1,9 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 # Vista de inicio
 def inicio(request):
-    return render(request, 'page/index.html')
+    autenticado = False
+    usuario = "SUSANA LOPEZ"
+    contexto = {
+        "esta_autenticado": autenticado,
+        "user": usuario
+    }
+    return render(request, 'page/index.html', contexto)
 
 # Vista de productos
 def productos(request):
@@ -12,14 +17,15 @@ def productos(request):
         producto = {
             "nombre": "coca-cola",
             "precio": 0.75,
+            "iva": 0.75*0.13,
             "cantidad": 24
         }
         productos.append(producto)
     
-    # Diccionario es una conexión de clave, valor
+    # Incluye el nombre del usuario en el contexto
+    usuario = "SUSANA LOPEZ"
     contexto = {
         "productos": productos,
-        "usuario": "SUSANA LOPEZ"
+        "user": usuario
     }
     return render(request, 'page/productos.html', contexto)
-
