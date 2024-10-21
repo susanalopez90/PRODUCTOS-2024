@@ -1,12 +1,25 @@
 from django.shortcuts import render
-#importamos HttpResponse
 from django.http import HttpResponse
 
-# Create your views here.
-def hola_mundo(request):
-#Devolvemos un hola mundo a través de un encabezado h1
-    return HttpResponse("<h1>hola mundo desde mi aplicacion Web</h1><br><p>Esta es una prueba de párrafo</p>")
-
-#crear vista principal
+# Vista de inicio
 def inicio(request):
-    return render(request,'base.html')
+    return render(request, 'page/index.html')
+
+# Vista de productos
+def productos(request):
+    productos = []
+    for i in range(5):
+        producto = {
+            "nombre": "coca-cola",
+            "precio": 0.75,
+            "cantidad": 24
+        }
+        productos.append(producto)
+    
+    # Diccionario es una conexión de clave, valor
+    contexto = {
+        "productos": productos,
+        "usuario": "SUSANA LOPEZ"
+    }
+    return render(request, 'page/productos.html', contexto)
+
